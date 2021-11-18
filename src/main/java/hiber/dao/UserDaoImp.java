@@ -6,44 +6,44 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+   private EntityManager entityManager;
 
-   @Override
-   public User get(Long id) {
-      return sessionFactory.getCurrentSession().get(User.class, id);
-   }
-
-   @Override
-   public User getByCar(String model, int series) {
-      Query query = sessionFactory.getCurrentSession().createQuery("from User u where u.car.model=:model and u.car.series=:series");
-      query.setParameter("model", model);
-      query.setParameter("series", series);
-
-      return (User) query.uniqueResult();
+   @PersistenceContext
+   public void setEntityManager(EntityManager entityManager) {
+      this.entityManager = entityManager;
    }
 
    @Override
    public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
+      entityManager.merge(user);
    }
 
    @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
+   public void updateUser(User user) {
+      entityManager.merge(user);
    }
 
    @Override
-   public void delete(User user) {
-      sessionFactory.getCurrentSession().delete(user);
+   public void removeUser(int id) {
+      entityManager.remove(entityManager.find(User.class, id));
+   }
+
+   @Override
+   public User getUserById(int id) {
+      return entityManager.find(User.class, id);
+   }
+
+   @Override
+   public List<User> userList() {
+      return entityManager.createQuery("SELECT users from User users").getResultList();
    }
 
 }

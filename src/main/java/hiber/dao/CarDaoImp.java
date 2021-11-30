@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CarDaoImp implements CarDao{
+public class CarDaoImp implements CarDao {
+
+    SessionFactory sessionFactory;
 
     @Autowired
-    SessionFactory sessionFactory;
+    public CarDaoImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Car get(Long id) {

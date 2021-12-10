@@ -7,9 +7,7 @@ import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.net.CacheRequest;
 import java.sql.SQLException;
-import java.util.List;
 
 public class MainApp {
     public static void main(String[] args) throws SQLException {
@@ -19,7 +17,6 @@ public class MainApp {
         UserService userService = context.getBean(UserService.class);
         CarService carService = context.getBean(CarService.class);
 
-//        Car car1 = new Car("Mercedes", 1);
         Car car2 = new Car("Honda", 2);
         Car car3 = new Car("Mazda", 3);
         Car car4 = new Car("Lada", 4);
@@ -35,13 +32,6 @@ public class MainApp {
         User user = userService.getByCar("Honda", 2);
         System.out.println(user);
 
-//        userService.delete(user);
-
-        Car car = carService.get(2L);
-//        carService.delete(car);
-//        System.out.println("======================================");
-
-//        userService.listUsers().forEach(System.out::println);
         context.close();
     }
 }

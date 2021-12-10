@@ -69,10 +69,10 @@ public class User {
 
     @Override
     public String toString() {
-        return  "Id = " + id + '\n' +
+        return "Id = " + id + '\n' +
                 "First Name = " + firstName + '\n' +
                 "Last Name = " + lastName + '\n' +
                 "Email = " + email + '\n' +
-                "Car = " + car.getModel() +'\n';
+                "Car = " + car.getModel() + '\n';
     }
 }

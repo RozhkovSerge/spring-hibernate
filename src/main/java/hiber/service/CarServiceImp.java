@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CarServiceImp implements CarService{
+public class CarServiceImp implements CarService {
 
     private CarDao carDao;
 
@@ -16,13 +16,11 @@ public class CarServiceImp implements CarService{
         this.carDao = carDao;
     }
 
-    @Transactional
     @Override
     public Car get(Long id) {
         return carDao.get(id);
     }
 
-    @Transactional
     @Override
     public void delete(Car car) {
         carDao.delete(car);
